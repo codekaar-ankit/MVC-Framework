@@ -1,6 +1,6 @@
 <?php
-session_start();
-include "database.php";
+use Model\Database;
+
 
 class User
 {
@@ -14,23 +14,49 @@ class User
     {
         $user_query = "select * from registrationsDeatils where email_id = '$username' AND password1 = '$password'";
         $result = $this->db->makeQuery($user_query);
-        return mysqli_num_rows($result);
+        $row =  mysqli_num_rows($result);
+        $DataCheck = $result->fetch_assoc();
+        $_SESSION["userId"] = $DataCheck['id'];
+        return $DataCheck;
     }
 
     public function register($fname, $lname, $emailId, $dob, $gender, $pass, $post)
     {
         $checkIfAlreadyExist = "select * from registrationsDeatils where email_id = '$emailId'";
+
         $result = $this->db->makeQuery($checkIfAlreadyExist);
         $num = mysqli_num_rows($result);
 
-        if ($num == 1) {
-            header("Location: ../index.php");
-            $_SESSION["user"] =["type"=>false,"user"=>"This email-id is already registered with us, Please login.."];
-
+        if ($num > 0) {
+            return  false;
         } else {
             $regisQuery = "insert into registrationsDeatils(first_name, last_name, email_id , date_birth, gender, password1, post) VALUES('$fname', '$lname', '$emailId', '$dob', '$gender', '$pass', '$post')";
             $insertQuery = $this->db->makeQuery($regisQuery);
-            return mysqli_num_rows($insertQuery);
+            return true;
+//            mysqli_num_rows($insertQuery)
+        }
+    }
+
+    public function isLogedin()
+    {
+        return !empty($_SESSION["userId"]);
+    }
+
+    public function logout()
+    {
+        $_SESSION["userId"] = "";
+        session_unset();
+        session_destroy();
+        return true;
+    }
+
+    public static function redirectIfNotLoggedIn()
+    {
+        if (empty($_SESSION["userId"])){
+            $urlHelper = new UrlHelper();
+            $baseUrl = $urlHelper->getBaseUrl();
+            header("location: $baseUrl");
+//            $url->getBaseUrl();
         }
     }
 

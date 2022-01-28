@@ -1,8 +1,14 @@
 <?php
 
+namespace Helper\UrlController;
+
 class UrlHelper
 {
-    const BASE_URL = 'http://localhost/Practice/';
+    const BASE_URL = 'http://localhost/MVC-Framework/';
+
+    const VIEW_URL = 'views/';
+
+    const CONTROLLER_URL = 'Controller/';
 
     const CSS_PATH = "views/assets/css/";
 
@@ -20,7 +26,17 @@ class UrlHelper
 
     public function getImageUrl(string $fileName): string
     {
-        return self::BASE_URL . self::IMAGE_PATH. $fileName;
+        return $this->getBaseUrl(). self::IMAGE_PATH. $fileName;
+    }
+
+    public function getViewUrl(string $fileName): string
+    {
+        return $this->getBaseUrl(). self::VIEW_URL. $fileName;
+    }
+
+    public function getControllerUrl(string $fileName): string
+    {
+        return $this->getBaseUrl(). self::CONTROLLER_URL. $fileName;
     }
 
 }

@@ -1,6 +1,8 @@
 <?php
+namespace Controller\User;
 session_start();
 include "../Model/User.php";
+
 
 class UserController
 {
@@ -16,10 +18,10 @@ class UserController
         $user = $_POST['username'];
         $pass = $_POST['password'];
         if ($this->userModel->login($user, $pass)) {
+            $_SESSION["message"] =["type"=>true,"displayMessage"=>"Welcome to dashboard!"];
             header("Location: ../views/dashboard.php");
-            $_SESSION["message"] =["type"=>true,"message"=>"Welcome to dashboard!"];
         } else {
-            $_SESSION["message"] =["type"=>false,"message"=>"username or password is wrong"];
+            $_SESSION["message"] =["type"=>false,"displayMessage1"=>"username or password is wrong"];
             header("Location: ../index.php ");
         }
     }
@@ -35,11 +37,17 @@ class UserController
         $post = $_POST['postDetails'];
         if ($this->userModel->register($firstName, $lastName, $emailId, $birthDate, $gender, $pass, $post)) {
             header("Location: ../views/dashboard.php");
-            $_SESSION["user"] =["type"=>true,"user"=>"Welcome to dashboard!"];
+            $_SESSION["message"] =["type"=>true,"displayMessage"=>"Welcome to dashboard account created successfully!"];
         } else {
-//            $_SESSION["user"] =["type"=>true,"user"=>"Please input details."];
-            header("Location: ../index.php "); echo "hi";
+            header("Location: ../views/dashboard.php");
+            $_SESSION["message"] =["type"=>false,"displayMessage1"=>"Please input another email id as this is already registered with us."];
         }
+    }
+
+    public function logoutUser()
+    {
+        $this->userModel->logout();
+        header("Location: ../index.php "); echo "logout";
     }
 }
 
@@ -52,6 +60,9 @@ switch ($action) {
         break;
     case "register":
         $controller->registerUser();
+        break;
+    case "logout":
+        $controller->logoutUser();
         break;
     default:
         die("Your favorite color is neither red, blue, nor green!");

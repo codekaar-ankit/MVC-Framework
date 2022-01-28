@@ -1,7 +1,7 @@
 <?php include "../header.php" ?>
 <div class="container mainRow body-content">
     <div class="container  d-flex justify-content-center bg-warning registrationDiv col-md-6">
-        <form id="registrationForm" name="registerForm" action="/Practice/controller/userController.php" method="post" class="">
+        <form id="registrationForm" name="registerForm" action="<?= $url->getControllerUrl("UserController.php") ?>" method="post" class="">
             <div class="mt-3 mb-4 text-center display-5">
                 <label class="font-weight-bold">Please input your Details</label>
             </div>
@@ -43,10 +43,9 @@
             <div class="row common">
                 <input type="text" name="postDetails" class="form-control" placeholder="Post" id="postDetails">
             </div>
-            <div class="d-flex buttonsRow justify-content-around ">
+            <div class="d-flex buttonsRow justify-content-center text-center ">
                 <input type="submit" class="btn btn-success form-control" role="button" value="Submit" />
 <!--                    <a class="btn btn-info form-control" id="resetButton"  onsubmit="validate()" href="#" role="reset">Reset</a>-->
-                </div>
             </div>
         </form>
     </div>
@@ -63,8 +62,9 @@
         margin-top: 10%;
         border: 2px solid;
     }
-    .body-content {
-        min-height: calc(100vh - 30px);
+    .messageShow {
+        margin-top: 10% !important;
+        text-align: center !important;
     }
 </style>
 

@@ -1,10 +1,16 @@
 <?php
 session_start();
 include "Helpers/UrlHelper.php";
-$url =  new UrlHelper;
+include "Model/User.php";
+use Helper\UrlController\UrlHelper;
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$url =  new UrlHelper();
 ?>
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link href="<?= $url->getCSSUrL("style.css")?>" >
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -25,37 +31,35 @@ $url =  new UrlHelper;
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse1">
             <div class="navbar-nav">
-                <a href="#" class="nav-item nav-link active"><i class="fal fa-home"></i></a>
+                <a href="<?= $url->getBaseUrl() ?>" class="nav-item nav-link active"><i class="fal fa-home"></i></a>
                 <a href="#" class="nav-item nav-link"><i class="fas fa-address-card"></i></a>
-                <a href="/Practice/index.php" class=" nav-link"><i class="fas fa-user text-primary"></i></a>
-                <a href="/Practice/views/registration.php" class="nav-link"><i class="fas fa-user-plus text-warning"></i></a>
+                <a href="<?= $url->getBaseUrl() ?>" class=" nav-link"><i class="fas fa-user text-primary"></i></a>
+                <a href="<?= $url->getViewUrl("registration.php")?>" class="nav-link"><i class="fas fa-user-plus text-warning"></i></a>
             </div>
-            <form class="d-flex ms-auto">
-                <input type="text" class="form-control me-sm-2" placeholder="Search">
-                <button type="submit" class="btn btn-outline-light">Search</button>
+            <form class="d-flex ms-auto" action="<?= $url->getControllerUrl("UserController.php") ?>" method="post">
+                <input type="hidden" name="action" value="logout">
+<!--                <input type="text" class="form-control me-sm-2" placeholder="Search">-->
+                <button type="submit" class="btn btn-outline-light" value=""/><i class="fas fa-sign-out-alt"></i></button>
             </form>
         </div>
     </div>
 </nav>
-<?php if ($_SESSION['message'] || $_SESSION['user']): ?>
-    <?php if ($_SESSION['message']['type'] === false): ?>
+
+<?php if ($_SESSION['message']): ?>
+<?php if ($_SESSION['message']['type'] === false): ?>
     <div class="messageShow">
         <div class="alert alert-danger alert-dismissible fade show messageShow" role="alert">
-            <strong>Holy buddy!</strong> Please login.
+            <strong>Hello buddy! <?= $_SESSION['message']['displayMessage1'] ?></strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
-    <?php elseif ($_SESSION['user']['type'] === false): ?>
-            <div class="alert alert-info alert-dismissible fade show messageShow" role="alert">
-                <strong>Holy buddy!</strong> Please login as you already have account with us.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-    <?php else: ?>
-        <div class="alert alert-success alert-dismissible fade show messageShow" role="alert">
-            <strong>Holy buddy!</strong> You should check in on some of those fields below.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    <?php endif; ?>
-<?php session_unset();
-session_destroy(); ?>
+<?php else: ?>
+    <div class="alert alert-success alert-dismissible fade show messageShow" role="alert">
+        <strong>Hello buddy! <?= $_SESSION['message']['displayMessage'] ?> </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 <?php endif; ?>
+
+<?php $_SESSION['message'] = null; ?>
+<?php endif; ?>
+<main class="min-vh-100">
