@@ -1,5 +1,11 @@
 <?php
-use Model\Database;
+
+namespace DatabaseModel;
+
+include "Database.php";
+
+use Helper\UrlHelper;
+use Model\Database\DataBase;
 
 
 class User
@@ -7,12 +13,12 @@ class User
     private $db;
     public function __construct()
     {
-        $this->db = new DataBase;
+        $this->db = new DataBase();
     }
 
     public function login($username, $password)
     {
-        $user_query = "select * from registrationsDeatils where email_id = '$username' AND password1 = '$password'";
+        $user_query = "select * from registrationsDeatils where email_id = '$username' AND password = '$password'";
         $result = $this->db->makeQuery($user_query);
         $row =  mysqli_num_rows($result);
         $DataCheck = $result->fetch_assoc();
@@ -30,7 +36,8 @@ class User
         if ($num > 0) {
             return  false;
         } else {
-            $regisQuery = "insert into registrationsDeatils(first_name, last_name, email_id , date_birth, gender, password1, post) VALUES('$fname', '$lname', '$emailId', '$dob', '$gender', '$pass', '$post')";
+            $regisQuery = "insert into registrationsDeatils(first_name, last_name, email_id , date_birth, gender, password, post) 
+            VALUES('$fname', '$lname', '$emailId', '$dob', '$gender', '$pass', '$post')";
             $insertQuery = $this->db->makeQuery($regisQuery);
             return true;
 //            mysqli_num_rows($insertQuery)
@@ -39,7 +46,11 @@ class User
 
     public function isLogedin()
     {
-        return !empty($_SESSION["userId"]);
+        if ( !empty($_SESSION["userId"])) {
+            $urlHelper = new UrlHelper();
+            $dashboardUrl = $urlHelper->getViewUrl("dashboard.php");
+            header("location: $dashboardUrl");
+        }
     }
 
     public function logout()

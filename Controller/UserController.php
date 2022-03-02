@@ -1,13 +1,16 @@
 <?php
-namespace Controller\User;
+namespace Controller;
 session_start();
+
 include "../Model/User.php";
 
+
+use  DatabaseModel\User;
 
 class UserController
 {
     private $userModel;
-
+        
     public function __construct()
     {
         $this->userModel = new User();
@@ -39,7 +42,7 @@ class UserController
             header("Location: ../views/dashboard.php");
             $_SESSION["message"] =["type"=>true,"displayMessage"=>"Welcome to dashboard account created successfully!"];
         } else {
-            header("Location: ../views/dashboard.php");
+            header("Location: ../index.php");
             $_SESSION["message"] =["type"=>false,"displayMessage1"=>"Please input another email id as this is already registered with us."];
         }
     }
@@ -51,7 +54,7 @@ class UserController
     }
 }
 
-$controller = new UserController;
+$controller = new UserController();
 
 $action = $_POST['action'];
 switch ($action) {

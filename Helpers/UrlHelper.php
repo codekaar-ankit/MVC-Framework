@@ -1,6 +1,6 @@
 <?php
 
-namespace Helper\UrlController;
+namespace Helper;
 
 class UrlHelper
 {

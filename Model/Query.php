@@ -1,5 +1,8 @@
 <?php
-include_once "Database.php";
+namespace DatabaseQuery;
+
+include "Database.php";
+use Model\Database\DataBase;
 
 class Query
 {

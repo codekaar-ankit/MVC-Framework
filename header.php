@@ -1,8 +1,10 @@
 <?php
 session_start();
+
 include "Helpers/UrlHelper.php";
 include "Model/User.php";
-use Helper\UrlController\UrlHelper;
+use Helper\UrlHelper;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -25,14 +27,14 @@ $url =  new UrlHelper();
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark navbarMenuMain bg-dark">
     <div class="container-fluid navbarMenu">
-        <a href="#" class="navbar-brand">Codekaar</a>
+        <a href="<?=$url->getBaseUrl(); ?>" class="navbar-brand">Codekaar</a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse1">
             <div class="navbar-nav">
                 <a href="<?= $url->getBaseUrl() ?>" class="nav-item nav-link active"><i class="fal fa-home"></i></a>
-                <a href="#" class="nav-item nav-link"><i class="fas fa-address-card"></i></a>
+                <a href="<?= $url->getViewUrl("dashboard.php") ?>" class="nav-item nav-link"><i class="fas fa-address-card"></i></a>
                 <a href="<?= $url->getBaseUrl() ?>" class=" nav-link"><i class="fas fa-user text-primary"></i></a>
                 <a href="<?= $url->getViewUrl("registration.php")?>" class="nav-link"><i class="fas fa-user-plus text-warning"></i></a>
             </div>

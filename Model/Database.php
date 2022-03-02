@@ -8,7 +8,7 @@ class DataBase
         $servername = "localhost";
         $username = "ankit";
         $password = "root";
-        $conn = mysqli_connect($servername, $username, $password, 'loginDetails');
+        $conn = mysqli_connect($servername, $username, $password, 'mvc');
 
         // Check connection
         if ($conn->connect_error) {

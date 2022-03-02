@@ -1,4 +1,7 @@
 <?php
+
+use DatabaseModel\User;
+
 include "../header.php";
 User::redirectIfNotLoggedIn();
 ?>

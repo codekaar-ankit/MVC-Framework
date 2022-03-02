@@ -1,6 +1,10 @@
 <?php
+
+namespace Controller;
 //session_start();
-include_once("../../Model/Query.php");
+
+use DatabaseQuery\Query;
+//include_once("../../Model/Query.php");
 
 
 class DashboardController

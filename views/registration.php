@@ -1,7 +1,12 @@
-<?php include "../header.php" ?>
+<?php
+use DatabaseModel\User;
+include "../header.php";
+User::isLogedin();
+?>
+
 <div class="container mainRow body-content">
     <div class="container  d-flex justify-content-center bg-warning registrationDiv col-md-6">
-        <form id="registrationForm" name="registerForm" action="<?= $url->getControllerUrl("UserController.php") ?>" method="post" class="">
+        <form id="registrationForm" name="registerForm" action="<?= $url->getControllerUrl("UserController.php");  ?>" method="post" class="">
             <div class="mt-3 mb-4 text-center display-5">
                 <label class="font-weight-bold">Please input your Details</label>
             </div>
@@ -20,7 +25,7 @@
             </div>
             <div class="common">
                 <div class="form-check-inline">
-                    <label class="gender" for="gender">
+                    <label class="gender" for="gender" id="gender">
                         Gender:
                     </label>
                 </div>
