@@ -5,7 +5,7 @@ namespace DatabaseModel;
 include "Database.php";
 
 use Helper\UrlHelper;
-use Model\Database\DataBase;
+use Model\Database\Database;
 
 
 class User
@@ -13,7 +13,7 @@ class User
     private $db;
     public function __construct()
     {
-        $this->db = new DataBase();
+        $this->db = new Database();
     }
 
     public function login($username, $password)
@@ -71,4 +71,18 @@ class User
         }
     }
 
+    public function getUser()
+    {
+
+    }
+
+    public function getUserData($key)
+    {
+
+    }
+
+    public function __destruct()
+    {
+        $this->db =  new Database(); ;
+    }
 }

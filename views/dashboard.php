@@ -1,7 +1,7 @@
 <?php
 
 use DatabaseModel\User;
-
+include "../Controller/DashboardController.php";
 include "../header.php";
 User::redirectIfNotLoggedIn();
 ?>

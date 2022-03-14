@@ -4,11 +4,12 @@ session_start();
 include "Helpers/UrlHelper.php";
 include "Model/User.php";
 use Helper\UrlHelper;
+use DatabaseModel\User;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
+$user = new User();
 $url =  new UrlHelper();
 ?>
 <!DOCTYPE HTML>
@@ -38,11 +39,12 @@ $url =  new UrlHelper();
                 <a href="<?= $url->getBaseUrl() ?>" class=" nav-link"><i class="fas fa-user text-primary"></i></a>
                 <a href="<?= $url->getViewUrl("registration.php")?>" class="nav-link"><i class="fas fa-user-plus text-warning"></i></a>
             </div>
-            <form class="d-flex ms-auto" action="<?= $url->getControllerUrl("UserController.php") ?>" method="post">
-                <input type="hidden" name="action" value="logout">
-<!--                <input type="text" class="form-control me-sm-2" placeholder="Search">-->
-                <button type="submit" class="btn btn-outline-light" value=""/><i class="fas fa-sign-out-alt"></i></button>
-            </form>
+            <?php if ($user->isLogedin()) ?>
+                <form class="d-flex ms-auto" action="<?= $url->getControllerUrl("UserController.php") ?>" method="post">
+                    <input type="hidden" name="action" value="logout">
+    <!--                <input type="text" class="form-control me-sm-2" placeholder="Search">-->
+                    <button type="submit" class="btn btn-outline-light" value=""/><i class="fas fa-sign-out-alt"></i></button>
+                </form>
         </div>
     </div>
 </nav>

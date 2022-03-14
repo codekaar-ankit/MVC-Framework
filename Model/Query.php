@@ -1,15 +1,15 @@
 <?php
 namespace DatabaseQuery;
-
 include "Database.php";
-use Model\Database\DataBase;
+use Model\Database\Database;
+
 
 class Query
 {
     private $db;
     public function __construct()
     {
-        $this->db = new DataBase();
+        $this->db = new Database();
     }
 
     public function insert($insertquery)
@@ -32,4 +32,8 @@ class Query
         return $this->db->makeQuery("select * from crud_query where data = '$selectQuery'");
     }
 
+    public function __destruct()
+    {
+        $this->db = new Database(); ;
+    }
 }

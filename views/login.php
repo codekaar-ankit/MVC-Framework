@@ -2,7 +2,7 @@
 
 include "../header.php";
 
-    (new DatabaseModel\User)->isLogedin();
+(new DatabaseModel\User)->isLogedin();
 ?>
 
     <div class="mainRow body-content">

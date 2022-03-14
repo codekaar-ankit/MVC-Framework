@@ -1,7 +1,7 @@
 <?php
 namespace Model\Database;
 
-class DataBase
+class Database
 {
     private function getConnection()
     {
